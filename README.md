@@ -14,6 +14,48 @@ The goal is to move beyond simple scores and provide clear explanations of risk.
 
 ---
 
+## Quick Start (시연용)
+
+```bash
+# 1. 의존성 설치 (백엔드 venv + 프론트 npm)
+make setup
+
+# 2. .env 준비 — JWT_SECRET 생성해서 넣기
+cp backend/.env.example backend/.env
+python3 -c "import secrets; print('JWT_SECRET=' + secrets.token_urlsafe(48))" >> backend/.env
+# (그 후 NAVER_CLIENT_ID/SECRET 도 채우기 — 뉴스 검색에 필수)
+
+# 3. 데모 데이터 시드 (사용자 2명 + 분석 5건 + 관심종목 5종목 + 게시글 3건)
+make seed
+
+# 4. 서버 실행 (터미널 두 개)
+make dev-backend     # http://localhost:8000  (Swagger: /docs)
+make dev-frontend    # http://localhost:5173
+```
+
+**데모 계정**
+
+| 이메일 | 비밀번호 | 용도 |
+|---|---|---|
+| `demo@redflag.kr` | `Demo1234!` | 분석 이력·관심종목·게시글 포함 |
+| `reviewer@redflag.kr` | `Review1234!` | 빈 화면 평가용 |
+
+**옵션 환경변수**
+
+- `ENABLE_FINBERT=true` — 실제 FinBERT 추론 사용. 서버 시작 시 KR/EN 모델을 백그라운드로 워밍.
+- `LLM_PROVIDER=anthropic` + `ANTHROPIC_API_KEY=...` — LLM 기반 설명 생성. 비워두면 한국어 템플릿 fallback.
+
+**자주 쓰는 make 명령**
+
+```bash
+make help        # 명령어 목록
+make test        # 백엔드 pytest
+make seed-reset  # 데모 데이터 비우고 새로 시드
+make clean       # venv / node_modules / DB 전부 삭제
+```
+
+---
+
 ## System Architecture
 
     Client (React)
