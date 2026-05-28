@@ -224,12 +224,14 @@ function Home() {
 
               <h3
                 className="text-xl font-bold text-slate-800 dark:text-white mb-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                dangerouslySetInnerHTML={{ __html: item.title }}
-              />
+              >
+                {stripTags(item.title)}
+              </h3>
               <p
                 className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-3"
-                dangerouslySetInnerHTML={{ __html: item.description }}
-              />
+              >
+                {stripTags(item.description)}
+              </p>
 
               {result && (
                 <div className="mt-2 p-4 rounded-xl bg-slate-50 dark:bg-slate-700 border border-slate-100 dark:border-slate-600">
